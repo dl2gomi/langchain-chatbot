@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+aws_config.env
+
+# Documentation
+docs/
+*.md
+!../README.md
+
+# Git
+.git/
+.gitignore
+
+# Tests
+test_*.py
+
+# Deployment files (not needed in container)
+*.zip
+lambda_deployment.zip
+cloudformation_template.yaml
+lambda_handler.py
+lambda_deploy.py
+
+# Scripts
+scripts/
+
