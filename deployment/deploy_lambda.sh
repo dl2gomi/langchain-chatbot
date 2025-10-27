@@ -33,7 +33,6 @@ aws ecr get-login-password --region ${AWS_REGION} | \
 
 # Step 3: Build Docker image
 echo "Step 3: Building Docker image..."
-cd ..
 docker build -f deployment/Dockerfile.lambda -t ${ECR_REPO_NAME}:${IMAGE_TAG} .
 
 # Step 4: Tag image for ECR
@@ -57,31 +56,11 @@ if aws lambda get-function --function-name ${LAMBDA_FUNCTION_NAME} --region ${AW
 else
     echo "Creating new Lambda function..."
     
-    # Create IAM role for Lambda
-    ROLE_NAME="chatbot-lambda-role"
-    TRUST_POLICY='{
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "Service": "lambda.amazonaws.com"
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }'
-    
-    # Create role if it doesn't exist
-    aws iam get-role --role-name ${ROLE_NAME} > /dev/null 2>&1 || \
-        aws iam create-role --role-name ${ROLE_NAME} --assume-role-policy-document "${TRUST_POLICY}"
-    
-    # Attach policies
-    aws iam attach-role-policy --role-name ${ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-    aws iam attach-role-policy --role-name ${ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonBedrockFullAccess
-    aws iam attach-role-policy --role-name ${ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
-    
+    # Use existing Lambda role
+    ROLE_NAME="PostConfirmationHandler-dev-us-east-1-lambdaRole"
     ROLE_ARN="arn:aws:iam::${AWS_ACCOUNT_ID}:role/${ROLE_NAME}"
+    
+    echo "Using existing role: ${ROLE_NAME}"
     
     echo "Waiting 10 seconds for IAM role to propagate..."
     sleep 10
