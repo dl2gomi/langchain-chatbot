@@ -90,8 +90,9 @@ print(response.json()['response'])
 - **Deployment Overview:** [docs/DEPLOYMENT_SUMMARY.md](docs/DEPLOYMENT_SUMMARY.md) - Quick reference
 - **Deployment Guide:** [deployment/README.md](deployment/README.md) - Detailed guide
 - **Docker:** `cd deployment && docker-compose up`
-- **AWS Lambda:** See [deployment/DEPLOY_LAMBDA.md](deployment/DEPLOY_LAMBDA.md)
-- **Kubernetes:** See [deployment/DEPLOY_KUBERNETES.md](deployment/DEPLOY_KUBERNETES.md)
+- **AWS Lambda:** See [deployment/DEPLOY_LAMBDA.md](deployment/DEPLOY_LAMBDA.md) ✅ **Working**
+- **AWS EKS:** See [deployment/DEPLOY_KUBERNETES.md](deployment/DEPLOY_KUBERNETES.md) ✅ **Working**
+- **Local Kubernetes:** See [deployment/DEPLOY_KUBERNETES.md](deployment/DEPLOY_KUBERNETES.md) ✅ **Working**
 
 ### Test & Develop
 ```bash

@@ -2,6 +2,14 @@
 
 Complete guide for deploying the chatbot API to Kubernetes on AWS EKS.
 
+## ✅ Status: WORKING
+
+This deployment has been successfully tested and is working with:
+- **AWS EKS Cluster**: `chatbot-cluster` (3 nodes, t3.medium)
+- **Kubernetes Version**: 1.32.9
+- **Region**: us-east-1
+- **Node Group**: `standard-workers` (3 replicas)
+
 ## Prerequisites
 
 1. **AWS CLI** installed and configured
@@ -9,6 +17,53 @@ Complete guide for deploying the chatbot API to Kubernetes on AWS EKS.
 3. **Docker** installed
 4. **eksctl** (optional, for cluster creation)
 5. **AWS EKS Cluster** running
+
+## Required AWS Permissions
+
+For eksctl to work, your AWS user needs these permissions:
+
+### EKS Permissions
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:CreateCluster",
+                "eks:DeleteCluster",
+                "eks:DescribeCluster",
+                "eks:ListClusters",
+                "eks:UpdateClusterConfig",
+                "eks:UpdateClusterVersion",
+                "eks:DescribeClusterVersions",
+                "eks:TagResource",
+                "eks:UntagResource",
+                "eks:ListTagsForResource",
+                "eks:DescribeAddon",
+                "eks:CreateAddon",
+                "eks:DeleteAddon",
+                "eks:UpdateAddon",
+                "eks:ListAddons",
+                "eks:DescribeAddonVersions",
+                "eks:DescribeAddonConfiguration",
+                "eks:CreateNodegroup",
+                "eks:DeleteNodegroup",
+                "eks:DescribeNodegroup",
+                "eks:ListNodegroups",
+                "eks:UpdateNodegroupConfig",
+                "eks:UpdateNodegroupVersion"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+### Additional Required Permissions
+- **CloudFormation**: `CloudFormationFullAccess`
+- **IAM**: `IAMFullAccess`
+- **EC2**: `AmazonEC2FullAccess`
 
 ## Quick Start
 

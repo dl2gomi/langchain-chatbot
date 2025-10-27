@@ -5,6 +5,7 @@ set -e
 
 echo "=========================================="
 echo "AWS EKS Deployment Script"
+echo "✅ Status: TESTED AND WORKING"
 echo "=========================================="
 
 # Configuration

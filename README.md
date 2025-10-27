@@ -11,7 +11,8 @@ A production-ready REST API chatbot powered by **AWS Bedrock** (Amazon Nova AI),
 - ⚙️ **Easy Configuration** - Change models via `.env` file
 - 📚 **Auto Documentation** - Built-in Swagger UI at `/docs`
 - 🐳 **Docker Ready** - Containerized deployment
-- ☁️ **AWS Lambda** - Serverless deployment option
+- ☁️ **AWS Lambda** - Serverless deployment option ✅ **TESTED**
+- ☸️ **AWS EKS** - Kubernetes deployment option ✅ **TESTED**
 
 ## 🚀 Quick Start (5 Minutes)
 

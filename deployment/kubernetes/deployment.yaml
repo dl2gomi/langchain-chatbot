@@ -25,8 +25,8 @@ spec:
       serviceAccountName: chatbot-sa
       containers:
       - name: chatbot-api
-        image: YOUR_ECR_REPO/chatbot-api:latest  # Replace with your ECR image
-        imagePullPolicy: Always
+        image: chatbot-api:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
           name: http

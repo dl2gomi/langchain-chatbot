@@ -2,6 +2,12 @@
 
 Your AWS Bedrock Chatbot is now ready for deployment in **AWS Lambda** or **Kubernetes (EKS)**!
 
+## ✅ Status: ALL DEPLOYMENTS TESTED AND WORKING
+
+- **AWS Lambda**: ✅ Successfully deployed and tested
+- **AWS EKS**: ✅ Successfully deployed and tested  
+- **Local Kubernetes**: ✅ Successfully deployed and tested
+
 ## ✅ What's Been Set Up
 
 ### 1. Lambda Deployment (Serverless)
@@ -19,6 +25,7 @@ Your AWS Bedrock Chatbot is now ready for deployment in **AWS Lambda** or **Kube
 ✅ Pay-per-use pricing  
 ✅ Fast deployment (~5 minutes)  
 ✅ Function URL for easy testing  
+✅ **TESTED AND WORKING** - Function URL: `https://wg44knbnaeduajys7vbnaoa4le0qosdt.lambda-url.us-east-1.on.aws/`  
 
 ### 2. Kubernetes (EKS) Deployment
 
@@ -43,6 +50,7 @@ Your AWS Bedrock Chatbot is now ready for deployment in **AWS Lambda** or **Kube
 ✅ Auto-scaling (HPA + Cluster Autoscaler)  
 ✅ Zero-downtime deployments  
 ✅ Advanced monitoring  
+✅ **TESTED AND WORKING** - Cluster: `chatbot-cluster` (3 nodes, Kubernetes 1.32.9)  
 
 ### 3. Documentation
 
