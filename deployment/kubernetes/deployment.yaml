@@ -25,8 +25,8 @@ spec:
       serviceAccountName: chatbot-sa
       containers:
       - name: chatbot-api
-        image: chatbot-api:latest
-        imagePullPolicy: Never
+        image: 366982930880.dkr.ecr.us-east-1.amazonaws.com/chatbot-api:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
           name: http
