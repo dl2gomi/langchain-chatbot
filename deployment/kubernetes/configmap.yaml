@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chatbot-config
+  namespace: chatbot
+data:
+  AWS_REGION: "us-east-1"
+  BEDROCK_MODEL_ID: "us.amazon.nova-pro-v1:0"
+  DYNAMODB_TABLE_NAME: "ChatbotConversations"
+  LOG_LEVEL: "INFO"
+

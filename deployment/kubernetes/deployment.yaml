@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-api
+  namespace: chatbot
+  labels:
+    app: chatbot-api
+    version: v1
+spec:
+  replicas: 3  # Scale as needed
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: chatbot-api
+  template:
+    metadata:
+      labels:
+        app: chatbot-api
+        version: v1
+    spec:
+      serviceAccountName: chatbot-sa
+      containers:
+      - name: chatbot-api
+        image: YOUR_ECR_REPO/chatbot-api:latest  # Replace with your ECR image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        
+        # Environment variables from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: chatbot-config
+        
+        # Environment variables from Secret
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: chatbot-secrets
+              key: AWS_ACCESS_KEY_ID
+              optional: true  # Optional if using IRSA
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: chatbot-secrets
+              key: AWS_SECRET_ACCESS_KEY
+              optional: true  # Optional if using IRSA
+        
+        # Resource limits
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        # Startup probe for slow-starting containers
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 30
+      
+      # Graceful shutdown
+      terminationGracePeriodSeconds: 30
+

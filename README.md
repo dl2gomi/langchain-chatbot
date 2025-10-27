@@ -303,10 +303,24 @@ uvicorn api:app --port 8001
 
 ## 📚 Documentation
 
+### Getting Started
+- **Quick Start:** [`START_HERE.md`](START_HERE.md) - New to the project? Start here!
 - **API Examples:** [`docs/API_EXAMPLES.md`](docs/API_EXAMPLES.md)
 - **Model Configuration:** [`docs/CHANGE_MODEL.md`](docs/CHANGE_MODEL.md)
 - **Model IDs Reference:** [`docs/MODEL_IDS.md`](docs/MODEL_IDS.md) ⭐ (Important!)
 - **AWS Setup:** [`docs/ENABLE_AMAZON_NOVA.md`](docs/ENABLE_AMAZON_NOVA.md)
+
+### Deployment
+- **Deployment Overview:** [`docs/DEPLOYMENT_SUMMARY.md`](docs/DEPLOYMENT_SUMMARY.md) - Quick reference
+- **Deployment Guide:** [`deployment/README.md`](deployment/README.md) - Choose your method
+- **AWS Lambda:** [`deployment/DEPLOY_LAMBDA.md`](deployment/DEPLOY_LAMBDA.md) - Serverless
+- **Kubernetes (EKS):** [`deployment/DEPLOY_KUBERNETES.md`](deployment/DEPLOY_KUBERNETES.md) - Production
+- **Architecture:** [`deployment/ARCHITECTURE.md`](deployment/ARCHITECTURE.md) - System design
+
+### Testing & Reference
+- **Testing Guide:** [`docs/TESTING_GUIDE.md`](docs/TESTING_GUIDE.md) - Test local & AWS deployments
+- **Project Structure:** [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md) - File organization
+- **Cleanup Summary:** [`docs/CLEANUP_SUMMARY.md`](docs/CLEANUP_SUMMARY.md) - What was changed
 
 ## 🛠️ Development
 

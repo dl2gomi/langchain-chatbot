@@ -22,7 +22,7 @@ Create a `.env` file in project root:
 AWS_ACCESS_KEY_ID=your_access_key_here
 AWS_SECRET_ACCESS_KEY=your_secret_key_here
 AWS_REGION=us-east-1
-BEDROCK_MODEL_ID=amazon.nova-pro-v1:0
+BEDROCK_MODEL_ID=us.amazon.nova-pro-v1:0
 DYNAMODB_TABLE_NAME=ChatbotConversations
 ```
 
@@ -84,10 +84,14 @@ print(response.json()['response'])
 - **Full Documentation:** [README.md](README.md)
 - **API Examples:** [docs/API_EXAMPLES.md](docs/API_EXAMPLES.md)
 - **Change Models:** [docs/CHANGE_MODEL.md](docs/CHANGE_MODEL.md)
+- **Model IDs:** [docs/MODEL_IDS.md](docs/MODEL_IDS.md) ⭐
 
 ### Deploy to Production
+- **Deployment Overview:** [docs/DEPLOYMENT_SUMMARY.md](docs/DEPLOYMENT_SUMMARY.md) - Quick reference
+- **Deployment Guide:** [deployment/README.md](deployment/README.md) - Detailed guide
 - **Docker:** `cd deployment && docker-compose up`
-- **AWS Lambda:** `cd deployment && python lambda_deploy.py`
+- **AWS Lambda:** See [deployment/DEPLOY_LAMBDA.md](deployment/DEPLOY_LAMBDA.md)
+- **Kubernetes:** See [deployment/DEPLOY_KUBERNETES.md](deployment/DEPLOY_KUBERNETES.md)
 
 ### Test & Develop
 ```bash

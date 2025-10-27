@@ -1,109 +1,41 @@
 """
-AWS Lambda Handler for Chatbot API
-Serverless deployment of the chatbot using AWS Lambda + API Gateway
+AWS Lambda handler for FastAPI application
+Supports both API Gateway REST API and HTTP API formats
 """
 
 import json
-import os
-from chatbot_aws import AWSChatbot
+from mangum import Mangum
+from api import app
 
-# Initialize chatbot outside handler for Lambda warm starts
-chatbot_instances = {}
+# Create Mangum adapter for Lambda
+# This allows FastAPI to work seamlessly with AWS Lambda
+handler = Mangum(app, lifespan="off")
 
-def lambda_handler(event, context):
+def lambda_handler_with_logging(event, context):
     """
-    AWS Lambda handler function
-    
-    Expected event structure:
-    {
-        "body": {
-            "message": "user message here",
-            "session_id": "optional-session-id",
-            "model_id": "optional-model-id"
-        }
-    }
+    Lambda handler with enhanced logging
+    Useful for debugging
     """
+    print("=" * 60)
+    print("Lambda Invocation")
+    print("=" * 60)
+    print(f"Event: {json.dumps(event, indent=2)}")
+    print(f"Context: {context}")
+    print("=" * 60)
     
     try:
-        # Parse request body
-        if isinstance(event.get('body'), str):
-            body = json.loads(event['body'])
-        else:
-            body = event.get('body', {})
-        
-        message = body.get('message')
-        session_id = body.get('session_id')
-        model_id = body.get('model_id')
-        
-        if not message:
-            return {
-                'statusCode': 400,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                'body': json.dumps({
-                    'error': 'Message is required',
-                    'usage': {
-                        'message': 'Your message here',
-                        'session_id': 'optional-session-id',
-                        'model_id': 'optional-model-id'
-                    }
-                })
-            }
-        
-        # Get or create chatbot instance for this session
-        if session_id and session_id in chatbot_instances:
-            chatbot = chatbot_instances[session_id]
-        else:
-            chatbot = AWSChatbot(model_id=model_id) if model_id else AWSChatbot()
-            if session_id:
-                chatbot.session_id = session_id
-                chatbot_instances[session_id] = chatbot
-        
-        # Get response
-        response_text = chatbot.chat_response(message)
-        
-        # Return response
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps({
-                'response': response_text,
-                'session_id': chatbot.session_id,
-                'model': chatbot.model_id,
-                'region': chatbot.aws_region
-            })
-        }
-        
+        response = handler(event, context)
+        print(f"Response: {json.dumps(response, indent=2)}")
+        return response
     except Exception as e:
-        print(f"Error in lambda_handler: {str(e)}")
+        print(f"Error: {str(e)}")
         return {
-            'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps({
-                'error': str(e)
+            "statusCode": 500,
+            "body": json.dumps({
+                "error": str(e),
+                "message": "Internal server error"
             })
         }
 
-
-def health_check_handler(event, context):
-    """Health check endpoint"""
-    return {
-        'statusCode': 200,
-        'headers': {
-            'Content-Type': 'application/json'
-        },
-        'body': json.dumps({
-            'status': 'healthy',
-            'service': 'aws-chatbot',
-            'version': '1.0.0'
-        })
-    }
-
+# Uncomment for enhanced logging
+# handler = lambda_handler_with_logging
